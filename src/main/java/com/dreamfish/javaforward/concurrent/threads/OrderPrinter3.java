@@ -34,13 +34,13 @@ public class OrderPrinter3 {
         @Override
         public void run() {
             if (oddNumberThread) {
-                while (status.get() < max) {
+                while (status.get() <= max) {
                     lock.lock();
                     try {
                         if (status.get() % 2 == 0) {
                             odd.await();
                         }
-                        if (status.get() < max) { //打印奇数
+                        if (status.get() <= max) { //打印奇数
                             System.out.println(name + ": " + status.getAndIncrement());
                         }
                         even.signal();
@@ -51,13 +51,13 @@ public class OrderPrinter3 {
                     }
                 }
             } else {
-                while (status.get() < max) {
+                while (status.get() <= max) {
                     lock.lock();
                     try {
                         if (status.get() % 2 != 0) {
                             even.await();
                         }
-                        if (status.get() < max) { //打印偶数
+                        if (status.get() <= max) { //打印偶数
                             System.out.println(name + ": " + status.getAndIncrement());
                         }
                         odd.signal();
@@ -72,7 +72,7 @@ public class OrderPrinter3 {
     }
 
     public static void main(String[] args) {
-        OrderPrinter orderPrinter = new OrderPrinter(100);
+        OrderPrinter3 orderPrinter = new OrderPrinter3(100);
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         executorService.submit(orderPrinter.new Printer("奇数线程", true));
         executorService.submit(orderPrinter.new Printer("偶数线程", false));

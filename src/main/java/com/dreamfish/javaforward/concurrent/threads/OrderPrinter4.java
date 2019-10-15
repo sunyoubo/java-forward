@@ -31,14 +31,14 @@ public class OrderPrinter4 {
         @Override
         public void run() {
             if (oddNumberThread) {
-                while (status.get() < max) {
+                while (status.get() <= max) {
                     if (isOdd.get()) { // 打印奇数
                         System.out.println(name + ": " + status.getAndIncrement());
                         isOdd.set(false);
                     }
                 }
             } else {
-                while (status.get() < max) {
+                while (status.get() <= max) {
                     if (!isOdd.get()) { // 打印偶数
                         System.out.println(name + ": " + status.getAndIncrement());
                         isOdd.set(true);
@@ -49,7 +49,7 @@ public class OrderPrinter4 {
     }
 
     public static void main(String[] args) {
-        OrderPrinter orderPrinter = new OrderPrinter(100);
+        OrderPrinter4 orderPrinter = new OrderPrinter4(100);
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         executorService.submit(orderPrinter.new Printer("奇数线程", true));
         executorService.submit(orderPrinter.new Printer("偶数线程", false));

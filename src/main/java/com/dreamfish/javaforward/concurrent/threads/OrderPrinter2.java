@@ -69,7 +69,7 @@ public class OrderPrinter2 {
     }
 
     public static void main(String[] args) {
-        OrderPrinter orderPrinter = new OrderPrinter(100);
+        OrderPrinter2 orderPrinter = new OrderPrinter2(100);
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         executorService.submit(orderPrinter.new Printer("奇数线程", true));
         executorService.submit(orderPrinter.new Printer("偶数线程", false));
